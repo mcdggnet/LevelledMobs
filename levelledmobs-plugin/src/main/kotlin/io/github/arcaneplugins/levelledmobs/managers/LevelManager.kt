@@ -58,6 +58,7 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.entity.ChestedHorse
 import org.bukkit.entity.Creeper
+import org.bukkit.entity.Enderman
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Horse
@@ -513,6 +514,19 @@ class LevelManager : LevelInterface2 {
             if (lmEntity.livingEntity.equipment != null){
                 // make sure we don't multiply anything it has picked up
                 itemsToNotMultiply.addAll(removePickedUpItems(lmEntity, currentDrops))
+            }
+
+            // Enderman carried blocks are not tracked in equipment slots, handle separately
+            if (lmEntity.livingEntity is Enderman) {
+                val carriedBlock = (lmEntity.livingEntity as Enderman).carriedBlock
+                if (carriedBlock != null) {
+                    for (drop in currentDrops) {
+                        if (drop.type == carriedBlock.material) {
+                            itemsToNotMultiply.add(drop)
+                            break
+                        }
+                    }
+                }
             }
 
             // Modify current drops
