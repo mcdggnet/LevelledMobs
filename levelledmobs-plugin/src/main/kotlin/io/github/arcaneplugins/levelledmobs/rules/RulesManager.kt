@@ -215,7 +215,7 @@ class RulesManager {
     ): FineTuningAttributes? {
         var result: FineTuningAttributes? = null
 
-        for (ruleInfo in lmEntity.getApplicableRules()) {
+        for (ruleInfo in lmEntity.getApplicableRules().toList()) {
             if (ruleInfo.mobMultipliers == null) continue
 
             val multipliers = ruleInfo.mobMultipliers!!
