@@ -2,6 +2,7 @@ package io.github.arcaneplugins.levelledmobs.wrappers
 
 import java.util.Stack
 import java.util.TreeSet
+import java.util.concurrent.ConcurrentSkipListSet
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 import io.github.arcaneplugins.levelledmobs.LevelledMobs
@@ -51,7 +52,7 @@ import org.bukkit.persistence.PersistentDataType
  */
 class LivingEntityWrapper private constructor() : LivingEntityWrapperBase(), LivingEntityInterface {
     // privates:
-    private var applicableGroups: MutableSet<String> = TreeSet(String.CASE_INSENSITIVE_ORDER)
+    private var applicableGroups: MutableSet<String> = ConcurrentSkipListSet(String.CASE_INSENSITIVE_ORDER)
     private var hasCache = false
     private var isClearingData = false
     private var _livingEntity: LivingEntity? = null
@@ -820,7 +821,7 @@ class LivingEntityWrapper private constructor() : LivingEntityWrapperBase(), Liv
     }
 
     private fun buildApplicableGroupsForMob(): MutableSet<String> {
-        val groups: MutableSet<String> = TreeSet(String.CASE_INSENSITIVE_ORDER)
+        val groups: MutableSet<String> = ConcurrentSkipListSet(String.CASE_INSENSITIVE_ORDER)
 
         for ((key, mobNames) in main.customMobGroups) {
             if (mobNames.contains(this.typeName))
