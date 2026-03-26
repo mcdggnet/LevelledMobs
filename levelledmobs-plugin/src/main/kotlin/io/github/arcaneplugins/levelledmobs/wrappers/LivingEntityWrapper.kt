@@ -3,6 +3,7 @@ package io.github.arcaneplugins.levelledmobs.wrappers
 import java.util.Stack
 import java.util.TreeSet
 import java.util.concurrent.ConcurrentSkipListSet
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 import io.github.arcaneplugins.levelledmobs.LevelledMobs
@@ -64,7 +65,7 @@ class LivingEntityWrapper private constructor() : LivingEntityWrapperBase(), Liv
     private var nametagCooldownTime = 0L
     private var _sourceSpawnerName: String? = null
     private var _sourceSpawnEggName: String? = null
-    private val applicableRules = mutableListOf<RuleInfo>()
+    private val applicableRules = CopyOnWriteArrayList<RuleInfo>()
     var spawnedWGRegions = mutableSetOf<String>()
         private set
     val spawnReason = LMSpawnReason()
